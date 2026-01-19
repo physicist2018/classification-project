@@ -142,7 +142,7 @@ $$
 b_i=V/\beta_{532}
 $$
 $$
-n_u C_v^u LR^u+n_s C_v^s LR^s+n_d C_v^d LR^d - b_i = d_i
+n_u \hat{x_u}+n_s \hat{x_s}+n_d \hat{x_d} - b_i = d_i
 $$
 
 $$
