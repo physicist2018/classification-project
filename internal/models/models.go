@@ -23,6 +23,7 @@ type InputParameters struct {
 	NumPointsToAvg int           // количество решений для усреднения
 	Lambda         float64       // Параметр регуляризации
 	Debug          bool          // Флаг отладки
+	MinSize        int           // Минимальный размер области
 }
 
 type DataPacket struct {

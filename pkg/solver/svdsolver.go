@@ -150,3 +150,34 @@ func solveRegularizedLS(A *mat.Dense, b *mat.VecDense, lambda float64) (*mat.Vec
 
 	return x, nil
 }
+
+func solveRegularizedLS1(A *mat.Dense, b *mat.VecDense, lambda float64) (*mat.VecDense, error) {
+	m, n := A.Dims()
+	if m <= n {
+		return nil, fmt.Errorf("ожидается переопределённая система (m > n), но m=%d, n=%d", m, n)
+	}
+
+	// Вычисляем A^T * A + λI
+	ATA := mat.NewDense(n, n, nil)
+	ATA.Mul(A.T(), A)
+	for i := 0; i < n; i++ {
+		ATA.Set(i, i, ATA.At(i, i)+lambda)
+	}
+
+	// Вычисляем A^T * b
+	ATb := mat.NewVecDense(n, nil)
+	ATb.MulVec(A.T(), b)
+
+	// LU разложение
+	var lu mat.LU
+	lu.Factorize(ATA)
+
+	// Решаем систему: ATA * x = ATb
+	// trans = false, так как решаем ATA * x = ATb, а не ATA^T * x = ATb
+	x := mat.NewVecDense(n, nil)
+	if err := lu.SolveVecTo(x, false, ATb); err != nil {
+		return nil, fmt.Errorf("ошибка при решении: %v (λ=%g)", err, lambda)
+	}
+
+	return x, nil
+}

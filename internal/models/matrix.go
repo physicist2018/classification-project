@@ -53,3 +53,19 @@ func (m *MatrixData) Get(row, col int) float64 {
 	}
 	return m.Data[row*m.Columns+col]
 }
+
+func (m *MatrixData) Set(row, col int, val float64) {
+	if row < 0 || row >= m.Rows || col < 0 || col >= m.Columns {
+		panic("index out of bounds")
+	}
+	m.Data[row*m.Columns+col] = val
+}
+
+func (m *Table) SetWithLabels(row, col int, val float64, rowlabel string, collabel string) {
+	if row < 0 || row >= m.Rows || col < 0 || col >= m.Columns {
+		panic("index out of bounds")
+	}
+	m.Data[row*m.Columns+col] = val
+	m.RowLabels[row] = rowlabel
+	m.ColumnLabels[col] = collabel
+}
