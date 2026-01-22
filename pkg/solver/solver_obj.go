@@ -54,7 +54,7 @@ func (s *Solver) Solve(p models.InputParameters) (models.OutputSolution, error) 
 
 	// Простой расчет гистограмм
 	fmt.Println("=== Простой расчет гистограмм ===")
-	fmt.Printf("=== Масштаб для Cv  x10¹² ===\n")
+	fmt.Printf("=== Единицы измерения для Cv  x10¹² Mm м³/м³ ===\n")
 	simpleResults := statistics.CalculateHistograms(solutions, 10)
 	statistics.PrintAllHistograms(simpleResults, 50)
 
