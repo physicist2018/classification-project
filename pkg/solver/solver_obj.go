@@ -23,7 +23,8 @@ func NewSolver(logger *slog.Logger) *Solver {
 }
 
 func (s *Solver) Solve(p models.InputParameters) (models.OutputSolution, error) {
-	scaleFactor := 1.0e-8
+	//mkm2cm3Tom3m3 := 1.0 //1e-12
+	scaleFactor := 1.0e-6
 	solutions := make([]models.OutputSolution, 0, p.NIters)
 	for _ = range p.NIters {
 		indices := s.generateIndices(p.N[0].Rows, p.N[0].Columns, p.NPoints)
@@ -53,7 +54,7 @@ func (s *Solver) Solve(p models.InputParameters) (models.OutputSolution, error) 
 
 	// Простой расчет гистограмм
 	fmt.Println("=== Простой расчет гистограмм ===")
-	fmt.Printf("=== Масштаб x %10.2f ===\n", 1/scaleFactor)
+	fmt.Printf("=== Масштаб для Cv  x10¹² ===\n")
 	simpleResults := statistics.CalculateHistograms(solutions, 10)
 	statistics.PrintAllHistograms(simpleResults, 50)
 

@@ -34,6 +34,7 @@ func (p *CholProblem) Solve(xinit []float64) (models.OutputSolution, error) {
 	x, err := solveRegularizedLS(p.A, p.b, p.labmda)
 
 	if err != nil {
+		fmt.Println(err)
 		return models.OutputSolution{}, err
 	}
 
