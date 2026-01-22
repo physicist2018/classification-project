@@ -2,6 +2,7 @@ package solver
 
 import (
 	"classification-project/internal/models"
+	"classification-project/pkg/math/statistics"
 	"fmt"
 	"log/slog"
 	"math/rand"
@@ -47,8 +48,14 @@ func (s *Solver) Solve(p models.InputParameters) (models.OutputSolution, error) 
 	nValid := len(solutions)
 	fmt.Printf("Num Valid Solutions: %d\n", nValid)
 	sort.Slice(solutions, func(i, j int) bool {
-		return solutions[i].Discrepancy > solutions[j].Discrepancy
+		return solutions[i].Discrepancy < solutions[j].Discrepancy
 	})
+
+	// Простой расчет гистограмм
+	fmt.Println("=== Простой расчет гистограмм ===")
+	fmt.Printf("=== Масштаб x %10.2f ===\n", 1/scaleFactor)
+	simpleResults := statistics.CalculateHistograms(solutions, 10)
+	statistics.PrintAllHistograms(simpleResults, 50)
 
 	numPtsToAvg := min(nValid, p.NumPointsToAvg)
 	scale := 1.0 / float64(numPtsToAvg)

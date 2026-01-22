@@ -28,7 +28,7 @@ func NewCholProblem(matrix *mat.Dense, vector *mat.VecDense, lambda float64, log
 
 func (p *CholProblem) Solve(xinit []float64) (models.OutputSolution, error) {
 
-	p.logger.Debug("", slog.Float64("Conditiona number", mat.Cond(p.A, 2)))
+	p.logger.Debug("", slog.Float64("Condition number", mat.Cond(p.A, 2)))
 	//fmt.Printf("Condition number: %f\n", mat.Cond(p.A, 2))
 
 	x, err := solveRegularizedLS(p.A, p.b, p.labmda)
